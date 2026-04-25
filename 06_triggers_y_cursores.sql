@@ -454,7 +454,7 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE(RPAD(v.INDICADOR, 30) || ': ' || v.VALOR);
     END LOOP;
     DBMS_OUTPUT.PUT_LINE('Cobrado hoy: ' ||
-        pkg_utilidades.formatear_colones(pkg_factura.cobrado_hoy));
+        pkg_utilidades.formatear_colones(SELECT NVL(SUM(MONTO_PAGADO),0) FROM PAGO WHERE TRUNC(FECHA_PAGO)=TRUNC(SYSDATE) AND ESTADO='APROBADO'));
 END;
 /
 
